@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskApi.Data;
 using TaskApi.Models;
+using Infrastructure.Messaging;
+using Contracts;
 
 namespace TaskApi.Services;
 
@@ -23,11 +25,14 @@ public class TaskService
         return await _context.Tasks.FindAsync(id);
     }
 
-    public async Task<TaskItem> CreateAsync(TaskItem taskItem)
+    public async Task<TaskItem> CreateAsync(CreateTaskDto taskDto)
     {
-        _context.Tasks.Add(taskItem);
+        TaskItem task = TaskItem.Create(taskDto);
+
+        _context.Tasks.Add(task);
         await _context.SaveChangesAsync();
-        return taskItem;
+
+        return task;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

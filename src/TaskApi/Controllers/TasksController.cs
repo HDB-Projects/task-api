@@ -32,9 +32,9 @@ public class TasksController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(TaskItem task)
+    public async Task<IActionResult> Create(CreateTaskDto taskDto)
     {
-        TaskItem created = await _service.CreateAsync(task);
+        TaskItem created = await _service.CreateAsync(taskDto);
         return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
     }
 
