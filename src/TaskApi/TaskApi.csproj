@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\shared\Contracts\Contracts.csproj" />
     <ProjectReference Include="..\..\shared\Domain\Domain.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Messaging\Messaging.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Consumers\Consumers.csproj" />
   </ItemGroup>
 
 </Project>

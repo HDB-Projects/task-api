@@ -2,9 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using TaskApi.Data;
 using TaskApi.Services;
 using Infrastructure.Messaging;
+using Contracts;
+using Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<IIntegrationEventHandler<TaskCreatedEvent>, TaskCreatedEventHandler>();
 builder.Services.AddSingleton<IMessageBus, FakeMessageBus>();
 builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
 

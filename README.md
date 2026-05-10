@@ -1,51 +1,189 @@
-# Task API (Azure AZ-204 Practice Project)
+# Task API (AZ-204 Cloud Architecture Practice Project)
 
-This project is a cloud-native backend application built with **.NET 8** and **Microsoft Azure**, designed to simulate a real-world task management system while covering key topics of the **Azure Developer Associate (AZ-204)** certification.
+This project is a cloud-native backend application built with **.NET 8** and inspired by **Microsoft Azure** architecture patterns.
+It is designed to simulate a real-world task management system while covering core topics of the **Azure Developer Associate (AZ-204)** certification.
 
-## Purpose
+The project focuses on practical implementation of:
+
+* event-driven architecture
+* asynchronous processing
+* messaging patterns
+* domain events
+* scalable backend design
+* cloud-native application structure
+
+---
+
+# Purpose
 
 The goal of this project is to:
 
-* Gain hands-on experience with Azure services
-* Build a scalable, event-driven backend system
-* Apply best practices for cloud development
-* Prepare for the AZ-204 certification through practical implementation
+* Gain hands-on experience with cloud-native backend architecture
+* Learn Azure-related architectural patterns through practical implementation
+* Build a scalable and loosely coupled event-driven system
+* Apply modern backend and messaging best practices
+* Prepare for the AZ-204 certification through project-based learning
 
-## Architecture Overview
+---
 
-The application follows a modular, cloud-oriented architecture:
+# Architecture Overview
 
-* **ASP.NET Core Web API** (Azure App Service)
-* **Azure SQL Database** for persistent storage
-* **Azure Service Bus** for asynchronous messaging
-* **Azure Functions** for background processing
-* **Azure Blob Storage** for file handling
-* **Application Insights** for monitoring and logging
-* **Managed Identity** for secure resource access
+The application follows a modular and event-driven architecture inspired by Azure services and distributed system patterns.
 
-## Key Features
+## Current Architecture
+
+* **ASP.NET Core Web API**
+* **Entity Framework Core**
+* **SQL Server**
+* **Domain Events**
+* **Integration Events**
+* **Message Bus Abstraction**
+* **Consumer Pipeline**
+* **Dependency Injection Scopes**
+* **Asynchronous Event Processing**
+
+## Azure-Oriented Architecture Goals
+
+The project architecture is intentionally designed to mirror common Azure solutions:
+
+| Local Implementation        | Azure Equivalent            |
+| --------------------------- | --------------------------- |
+| FakeMessageBus              | Azure Service Bus           |
+| Consumer Handlers           | Azure Functions             |
+| SQL Server                  | Azure SQL Database          |
+| Local Event Processing      | Serverless Event Processing |
+| Dependency Injection Scopes | Function Invocation Scope   |
+
+This allows the project to simulate realistic cloud-native workflows without requiring an active Azure subscription.
+
+---
+
+# Key Features
 
 * CRUD operations for task management
-* Event-driven communication using Service Bus
-* Serverless processing with Azure Functions
-* File upload support via Blob Storage
-* Centralized logging and monitoring
-* Secure, scalable cloud deployment
+* Domain-driven event pipeline
+* Event-driven architecture
+* Integration event mapping
+* Consumer-based asynchronous processing
+* Message bus abstraction layer
+* Clean separation of concerns
+* Dependency injection and scoped processing
+* Cloud-oriented backend structure
 
-## AZ-204 Topics Covered
+---
 
-This project maps directly to core AZ-204 exam areas:
+# Event Flow
 
-* Develop Azure compute solutions (App Services, Functions)
-* Develop for Azure storage (Blob Storage, Azure SQL)
-* Implement Azure security (Managed Identity, authentication)
-* Monitor and troubleshoot Azure solutions (Application Insights)
-* Connect to and consume Azure services (Service Bus)
+```text
+Client Request
+    ↓
+Task API
+    ↓
+Domain Event Created
+    ↓
+DbContext Dispatching
+    ↓
+Integration Event Mapping
+    ↓
+Message Bus Publishing
+    ↓
+Consumer Processing
+```
 
-## Status
+---
 
-Work in progress – implemented step by step with a focus on learning and best practices.
+# AZ-204 Topics Covered
 
-## Notes
+This project directly maps to important AZ-204 certification areas:
 
-This project is intentionally designed to balance **real-world relevance** and **exam preparation**, making it suitable as both a learning resource and a portfolio piece.
+## Develop Azure Compute Solutions
+
+* ASP.NET Core Web API
+* Azure Functions architecture concepts
+* Dependency Injection
+* Asynchronous processing
+
+## Develop for Azure Storage
+
+* Entity Framework Core
+* SQL-based persistence
+* Storage-oriented architecture patterns
+
+## Implement Azure Security
+
+* Service abstraction patterns
+* Separation of concerns
+* Secure architecture preparation for Managed Identity integration
+
+## Connect to and Consume Azure Services
+
+* Messaging abstraction
+* Event-driven communication
+* Queue and consumer concepts
+* Integration event design
+
+## Monitor and Troubleshoot Azure Solutions
+
+* Structured logging concepts
+* Distributed processing flow
+* Event tracing concepts
+
+---
+
+# Azure Simulation Notes
+
+Due to the lack of an active Azure subscription, cloud services such as:
+
+* Azure Service Bus
+* Azure Functions
+* Azure SQL
+* Blob Storage
+
+are currently implemented as local simulations or architecture abstractions.
+
+The project is intentionally structured so that simulated infrastructure components can later be replaced with real Azure services with minimal architectural changes.
+
+The primary focus is on understanding:
+
+* cloud-native architecture
+* distributed systems
+* event-driven design
+* Azure-related backend patterns
+* scalable application structure
+
+rather than portal-based Azure configuration.
+
+---
+
+# Current Technical Concepts
+
+The project currently implements:
+
+* Domain Event Pattern
+* Integration Event Mapping
+* Consumer Pipeline Pattern
+* Dependency Injection
+* Scoped Service Resolution
+* Asynchronous Event Handling
+* Event-driven Architecture
+* Separation of Domain and Integration Concerns
+
+---
+
+# Status
+
+Work in progress — implemented incrementally with a strong focus on architecture, learning, and AZ-204 preparation.
+
+---
+
+# Notes
+
+This project is intentionally designed to balance:
+
+* practical backend engineering
+* cloud-native architecture concepts
+* Azure certification preparation
+* portfolio relevance
+* real-world software design patterns
+
+The goal is not only to learn Azure services themselves, but to understand the architectural principles behind modern distributed cloud applications.
