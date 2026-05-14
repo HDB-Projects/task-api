@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TaskApi.Data;
 using TaskApi.Models;
 using TaskApi.Services;
 
@@ -45,5 +46,42 @@ public class TasksController : ControllerBase
         if (!success) return NotFound();
 
         return NoContent();
+    }
+
+    [HttpPost("{id}/attachments")]
+    public async Task<ActionResult> UploadAttachment(
+        Guid id,
+        IFormFile file,
+        [FromServices] IFileStorageService storageService,
+        [FromServices] AppDbContext context)
+    {
+        TaskItem? task = await context.Tasks.FindAsync(id);
+
+        if (task is null)
+            return NotFound("Task not found.");
+
+        if (file.Length == 0)
+            return BadRequest("File is empty.");
+
+        await using Stream stream = file.OpenReadStream();
+
+        string storedFileName = await storageService.SaveFileAsync(
+            stream,
+            file.FileName);
+
+        FileUploadMetadata metadata = new FileUploadMetadata
+        {
+            OriginalFileName = file.FileName,
+            ContentType = file.ContentType,
+            Size = file.Length
+        };
+
+        Attachment attachment = Attachment.Create(task.Id, metadata, storedFileName);
+
+        context.Attachments.Add(attachment);
+
+        await context.SaveChangesAsync();
+
+        return Ok(new {FileName = storedFileName});
     }
 }

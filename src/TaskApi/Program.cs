@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IIntegrationEventHandler<TaskCreatedEvent>, TaskCreatedEventHandler>();
 builder.Services.AddSingleton<IMessageBus, FakeMessageBus>();
 builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
+builder.Services.AddScoped<IFileStorageService, LocalFileStorageService>();
 
 builder.Services.AddControllers();
 

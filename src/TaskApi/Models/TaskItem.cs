@@ -18,6 +18,8 @@ public class TaskItem : IHasDomainEvents
 
     public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents;
 
+    public ICollection<Attachment> Attachments { get; set; } = new List<Attachment>();
+
     public void AddDomainEvent(DomainEvent eventItem)
     {
         _domainEvents.Add(eventItem);
