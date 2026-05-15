@@ -7,6 +7,9 @@ using Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 builder.Services.AddScoped<IIntegrationEventHandler<TaskCreatedEvent>, TaskCreatedEventHandler>();
 builder.Services.AddSingleton<IMessageBus, FakeMessageBus>();
 builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
@@ -15,7 +18,6 @@ builder.Services.AddScoped<IFileStorageService, LocalFileStorageService>();
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<TaskService>();
-
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
