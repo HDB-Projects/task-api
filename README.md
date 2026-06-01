@@ -56,6 +56,14 @@ The project architecture is intentionally designed to mirror common Azure soluti
 
 This allows the project to simulate realistic cloud-native workflows without requiring an active Azure subscription.
 
+## Local Development Configuration
+
+The database connection string is configured using .NET User Secrets and is intentionally not stored in the repository.
+
+Example:
+
+dotnet user-secrets set "ConnectionStrings:DefaultConnection" "<connection-string>"
+
 ---
 
 # Key Features
