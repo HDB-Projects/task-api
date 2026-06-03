@@ -1,0 +1,48 @@
+@startuml
+
+title Task API - Architecture Overview
+
+actor Client
+
+package "Task API" {
+
+    [TasksController]
+
+    [TaskService]
+
+    [AppDbContext]
+
+    [DomainEventDispatcher]
+
+    [FakeMessageBus]
+
+    [TaskCreatedEventHandler]
+
+    [LocalFileStorageService]
+}
+
+database "SQL Database" as DB
+
+folder "Storage" as Storage
+
+Client --> [TasksController]
+
+[TasksController] --> [TaskService]
+
+[TaskService] --> [AppDbContext]
+
+[AppDbContext] --> DB
+
+[AppDbContext] --> [DomainEventDispatcher]
+
+[DomainEventDispatcher] --> [FakeMessageBus]
+
+[FakeMessageBus] --> [TaskCreatedEventHandler]
+
+[TasksController] --> [LocalFileStorageService]
+
+[LocalFileStorageService] --> Storage
+
+[TasksController] --> DB : Attachment Metadata
+
+@enduml

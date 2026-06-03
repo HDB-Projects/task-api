@@ -1,0 +1,31 @@
+@startuml
+
+title Azure Target Architecture
+
+actor Client
+
+rectangle "Azure App Service" {
+    [Task API]
+}
+
+database "Azure SQL Database" as SQL
+
+queue "Azure Service Bus" as SB
+
+cloud "Azure Blob Storage" as Blob
+
+rectangle "Azure Function" {
+    [TaskCreated Consumer]
+}
+
+Client --> [Task API]
+
+[Task API] --> SQL
+
+[Task API] --> Blob
+
+[Task API] --> SB
+
+SB --> [TaskCreated Consumer]
+
+@enduml

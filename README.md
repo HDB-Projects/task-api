@@ -1,27 +1,22 @@
 # Task API (AZ-204 Cloud Architecture Practice Project)
 
 This project is a cloud-native backend application built with **.NET 8** and inspired by **Microsoft Azure** architecture patterns.
-It is designed to simulate a real-world task management system while covering core topics of the **Azure Developer Associate (AZ-204)** certification.
 
-The project focuses on practical implementation of:
+It was created as a practical learning project to gain hands-on experience with distributed systems, event-driven architecture, messaging, storage abstractions, monitoring, and secure configuration while preparing for the **Microsoft Azure Developer Associate (AZ-204)** certification.
 
-* event-driven architecture
-* asynchronous processing
-* messaging patterns
-* domain events
-* scalable backend design
-* cloud-native application structure
+The project focuses on understanding the architectural principles behind modern cloud applications rather than relying on Azure portal configuration alone.
 
 ---
 
 # Purpose
 
-The goal of this project is to:
+The goals of this project are:
 
-* Gain hands-on experience with cloud-native backend architecture
-* Learn Azure-related architectural patterns through practical implementation
-* Build a scalable and loosely coupled event-driven system
-* Apply modern backend and messaging best practices
+* Gain practical experience with cloud-native backend architecture
+* Learn Azure-related design patterns through implementation
+* Build a scalable and loosely coupled backend system
+* Apply event-driven and asynchronous processing concepts
+* Practice monitoring, security, and storage abstractions
 * Prepare for the AZ-204 certification through project-based learning
 
 ---
@@ -32,51 +27,82 @@ The application follows a modular and event-driven architecture inspired by Azur
 
 ## Current Architecture
 
-* **ASP.NET Core Web API**
-* **Entity Framework Core**
-* **SQL Server**
-* **Domain Events**
-* **Integration Events**
-* **Message Bus Abstraction**
-* **Consumer Pipeline**
-* **Dependency Injection Scopes**
-* **Asynchronous Event Processing**
+![Current Architecture](docs/images/architecture-current.png)
 
-## Azure-Oriented Architecture Goals
+### Implemented Components
 
-The project architecture is intentionally designed to mirror common Azure solutions:
+* ASP.NET Core Web API
+* Entity Framework Core
+* SQL Server LocalDB
+* Domain Events
+* Integration Events
+* Message Bus Abstraction
+* Consumer Pipeline
+* Dependency Injection Scopes
+* File Storage Abstraction
+* Attachment Metadata Persistence
+* Structured Logging (ILogger)
+* Secure Configuration via User Secrets
 
-| Local Implementation        | Azure Equivalent            |
-| --------------------------- | --------------------------- |
-| FakeMessageBus              | Azure Service Bus           |
-| Consumer Handlers           | Azure Functions             |
-| SQL Server                  | Azure SQL Database          |
-| Local Event Processing      | Serverless Event Processing |
-| Dependency Injection Scopes | Function Invocation Scope   |
+---
 
-This allows the project to simulate realistic cloud-native workflows without requiring an active Azure subscription.
+## Azure Target Architecture
 
-## Local Development Configuration
+![Azure Target Architecture](docs/images/architecture-azure-target.png)
+
+The project architecture is intentionally designed so that local implementations can later be replaced with Azure services with minimal architectural changes.
+
+| Local Implementation    | Azure Equivalent     |
+| ----------------------- | -------------------- |
+| ASP.NET Core API        | Azure App Service    |
+| SQL Server LocalDB      | Azure SQL Database   |
+| FakeMessageBus          | Azure Service Bus    |
+| Consumer Handlers       | Azure Functions      |
+| LocalFileStorageService | Azure Blob Storage   |
+| User Secrets            | Azure Key Vault      |
+| ILogger                 | Application Insights |
+
+---
+
+# Local Development Configuration
 
 The database connection string is configured using .NET User Secrets and is intentionally not stored in the repository.
 
-Example:
+Initialize User Secrets:
 
+```bash
+dotnet user-secrets init
+```
+
+Configure the connection string:
+
+```bash
 dotnet user-secrets set "ConnectionStrings:DefaultConnection" "<connection-string>"
+```
+
+Verify configured secrets:
+
+```bash
+dotnet user-secrets list
+```
 
 ---
 
 # Key Features
 
 * CRUD operations for task management
-* Domain-driven event pipeline
-* Event-driven architecture
+* Domain event creation and dispatching
 * Integration event mapping
+* Event-driven architecture
 * Consumer-based asynchronous processing
 * Message bus abstraction layer
+* File upload and attachment handling
+* Blob storage abstraction
+* Attachment metadata persistence
+* Structured logging with ILogger
+* Environment-specific configuration
+* Secure configuration using User Secrets
 * Clean separation of concerns
-* Dependency injection and scoped processing
-* Cloud-oriented backend structure
 
 ---
 
@@ -100,87 +126,164 @@ Consumer Processing
 
 ---
 
+# Storage Flow
+
+```text
+File Upload
+    ↓
+Storage Service
+    ↓
+Local Storage (Blob Simulation)
+
+Attachment Metadata
+    ↓
+SQL Database
+```
+
+---
+
 # AZ-204 Topics Covered
 
-This project directly maps to important AZ-204 certification areas:
+This project maps directly to several core AZ-204 certification areas.
 
 ## Develop Azure Compute Solutions
 
+Implemented:
+
 * ASP.NET Core Web API
-* Azure Functions architecture concepts
 * Dependency Injection
+* Service-based architecture
 * Asynchronous processing
+* Azure Functions architectural concepts
+
+Why it matters:
+
+AZ-204 focuses heavily on designing and implementing scalable compute solutions using App Services, Functions, and dependency injection patterns.
+
+---
 
 ## Develop for Azure Storage
 
+Implemented:
+
 * Entity Framework Core
-* SQL-based persistence
-* Storage-oriented architecture patterns
+* SQL persistence
+* File storage abstraction
+* Attachment metadata persistence
+* Blob storage concepts
+
+Why it matters:
+
+Understanding when to use relational storage versus object storage is a fundamental Azure development skill.
+
+---
 
 ## Implement Azure Security
 
-* Service abstraction patterns
-* Separation of concerns
-* Secure architecture preparation for Managed Identity integration
+Implemented:
+
+* User Secrets
+* IConfiguration-based configuration
+* Environment-specific configuration
+* Secure configuration management
+
+Prepared for:
+
+* Azure Key Vault
+* Managed Identity
+
+Why it matters:
+
+AZ-204 expects developers to understand secure secret handling and cloud-native configuration management.
+
+---
 
 ## Connect to and Consume Azure Services
 
-* Messaging abstraction
+Implemented:
+
+* Domain Events
+* Integration Events
+* Message Bus abstraction
+* Consumer architecture
 * Event-driven communication
-* Queue and consumer concepts
-* Integration event design
+
+Prepared for:
+
+* Azure Service Bus
+* Event-driven cloud architectures
+
+Why it matters:
+
+Messaging and asynchronous communication are core topics throughout the AZ-204 exam.
+
+---
 
 ## Monitor and Troubleshoot Azure Solutions
 
-* Structured logging concepts
-* Distributed processing flow
+Implemented:
+
+* Structured logging with ILogger
+* Log levels
 * Event tracing concepts
+* Environment-specific logging configuration
+
+Prepared for:
+
+* Application Insights
+* Azure Monitor
+
+Why it matters:
+
+Modern cloud applications must be observable, diagnosable, and monitorable in production environments.
+
+---
+
+# Technical Concepts Demonstrated
+
+The project currently demonstrates:
+
+* Domain Event Pattern
+* Integration Event Pattern
+* Event-driven Architecture
+* Consumer Pipeline Pattern
+* Dependency Injection
+* Scoped Service Resolution
+* Asynchronous Event Processing
+* Storage Abstraction
+* Secure Configuration Management
+* Structured Logging
+* Separation of Domain and Integration Concerns
 
 ---
 
 # Azure Simulation Notes
 
-Due to the lack of an active Azure subscription, cloud services such as:
+Because the project was intentionally developed without requiring an active Azure subscription, several Azure services are currently represented by local implementations and abstractions.
+
+Examples:
+
+* Azure Service Bus → FakeMessageBus
+* Azure Functions → Consumer Handlers
+* Azure SQL Database → SQL Server LocalDB
+* Azure Blob Storage → LocalFileStorageService
+* Azure Key Vault → User Secrets
+
+The architecture was designed so that these local implementations can later be replaced with real Azure services with minimal changes to the application code.
+
+---
+
+# Project Status
+
+Core functionality has been implemented and the project is actively used as a practical learning platform for cloud architecture and AZ-204 preparation.
+
+Future enhancements may include integration with real Azure services such as:
 
 * Azure Service Bus
 * Azure Functions
-* Azure SQL
-* Blob Storage
-
-are currently implemented as local simulations or architecture abstractions.
-
-The project is intentionally structured so that simulated infrastructure components can later be replaced with real Azure services with minimal architectural changes.
-
-The primary focus is on understanding:
-
-* cloud-native architecture
-* distributed systems
-* event-driven design
-* Azure-related backend patterns
-* scalable application structure
-
-rather than portal-based Azure configuration.
-
----
-
-# Current Technical Concepts
-
-The project currently implements:
-
-* Domain Event Pattern
-* Integration Event Mapping
-* Consumer Pipeline Pattern
-* Dependency Injection
-* Scoped Service Resolution
-* Asynchronous Event Handling
-* Event-driven Architecture
-* Separation of Domain and Integration Concerns
-
----
-
-# Status
-
-Work in progress — implemented incrementally with a strong focus on architecture, learning, and AZ-204 preparation.
+* Azure Blob Storage
+* Azure SQL Database
+* Application Insights
 
 ---
 
@@ -194,4 +297,4 @@ This project is intentionally designed to balance:
 * portfolio relevance
 * real-world software design patterns
 
-The goal is not only to learn Azure services themselves, but to understand the architectural principles behind modern distributed cloud applications.
+The primary goal is not only to learn Azure services themselves, but to understand the architectural principles behind modern distributed cloud applications.
