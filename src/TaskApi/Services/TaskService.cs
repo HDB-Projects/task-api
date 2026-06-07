@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskApi.Data;
+using TaskApi.DTOs;
 using TaskApi.Models;
 using Infrastructure.Messaging;
 using Contracts;

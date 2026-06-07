@@ -482,3 +482,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Local blob storage
+src/TaskApi/Storage/*
+!src/TaskApi/Storage/830c5db5-43a9-4ea7-b0e5-75b78ffd1b70_shark.gif

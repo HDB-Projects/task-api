@@ -1,4 +1,6 @@
-﻿namespace TaskApi.Models;
+﻿using TaskApi.DTOs;
+
+namespace TaskApi.Models;
 
 public class Attachment
 {

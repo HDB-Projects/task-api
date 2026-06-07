@@ -1,4 +1,4 @@
-﻿namespace TaskApi.Models;
+﻿namespace TaskApi.DTOs;
 
 public class CreateTaskDto
 {

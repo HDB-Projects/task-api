@@ -1,4 +1,5 @@
 ﻿using Domain;
+using TaskApi.DTOs;
 
 namespace TaskApi.Models;
 
